@@ -1,13 +1,27 @@
 import qrcode
+import numpy as np
+
+# data to encode
+data = "https://github.com/manishkumarsahgopsaheb"
+
+# instantiate QRCode object
 
 qr = qrcode.QRCode(
     version=1,
     box_size=10,
-    border=5
+    border=4
 )
-
-data = "my data is hiding inside this qrcode"
+# add data to the QR code
 qr.add_data(data)
-qr.make(fit=True)
-img = qr.make_image(fill="black", back_color="white")
+
+# compile the data into a QR code array
+qr.make()
+
+# print the image shape
+print("the shape of the QR image:", np.array(qr.get_matrix()).shape)
+
+# transfer the array into an actual image
+img = qr.make_image(fill_color="black", back_color="white")
+
+# save it to a file
 img.save("1.png")
